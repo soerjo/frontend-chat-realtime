@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Socket } from "socket.io-client";
 import ChatFooter from "./ChatFooter";
 
@@ -20,6 +20,7 @@ interface ChatProps {
 const Chat: React.FC<ChatProps> = ({ socket, roomid, username }) => {
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<Messages[]>([]);
+  const refScroll = useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     socket.on("receive_message", data => {
@@ -42,6 +43,10 @@ const Chat: React.FC<ChatProps> = ({ socket, roomid, username }) => {
     }
   };
 
+  useEffect(() => {
+    refScroll.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
     <div className="w-full">
       <div>header</div>
@@ -49,6 +54,7 @@ const Chat: React.FC<ChatProps> = ({ socket, roomid, username }) => {
         {messages.map((message, index) => (
           <div
             key={index}
+            ref={refScroll}
             className={`flex flex-col ${
               message.author === username ? " text-right" : " text-left"
             }`}

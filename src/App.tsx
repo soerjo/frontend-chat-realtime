@@ -13,7 +13,10 @@ function App() {
   const joinRoom = () => {
     if (username !== "" && roomid !== "") {
       console.log("onClick!");
-      socket.emit("join_room", roomid);
+      socket.emit("join_room", {
+        userName: username,
+        roomId: roomid,
+      });
     }
   };
 
