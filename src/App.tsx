@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles/App.css";
 import io from "socket.io-client";
 import Chat from "./components/Chat";
@@ -23,19 +23,27 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    document.title = "Realtime_Chat";
+  });
+
   return (
-    <div className="App container mx-auto px-5">
-      <HeaderComponent
-        username={username}
-        setUsername={setUsername}
-        roomid={roomid}
-        setRoomid={setRoomid}
-        joinRoom={joinRoom}
-      />
-      <div className="flex justify-center">
-        <Chat roomid={roomid} username={username} socket={socket} />
+    <>
+      <title>Realtime_Chat_Soerjo</title>
+      <meta />
+      <div className="App container mx-auto px-5">
+        <HeaderComponent
+          username={username}
+          setUsername={setUsername}
+          roomid={roomid}
+          setRoomid={setRoomid}
+          joinRoom={joinRoom}
+        />
+        <div className="flex justify-center">
+          <Chat roomid={roomid} username={username} socket={socket} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
