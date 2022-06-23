@@ -4,7 +4,10 @@ import io from "socket.io-client";
 import Chat from "./components/Chat";
 import HeaderComponent from "./components/HeaderComponent";
 
-const socket = io("http://localhost:4000");
+const URL = process.env.REACT_APP_URL;
+console.log(URL);
+
+const socket = io(URL || "http://localhost:4000");
 
 function App() {
   const [username, setUsername] = useState<string>("");
